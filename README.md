@@ -1,6 +1,6 @@
 # FSM Builder
 
-## A Quick Summary
+### A Quick Summary
 
 A simple tool that allows for creating and testing finite state machines.
 Created with typescript, css, and html in React. Utilizes the Canvas element for
