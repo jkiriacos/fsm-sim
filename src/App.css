@@ -1,0 +1,41 @@
+#wrapper {
+  width: 1250px;
+
+  overflow: hidden; /* will contain if #first is longer than #second */
+}
+#canvas {
+  width: 810px;
+  float: left; /* add this */
+}
+
+#tableContainer {
+  height: 244px;
+  width: 200px;
+  overflow-y: scroll;
+}
+
+table {
+  /* border: 2px solid #555; */
+  border-collapse: collapse;
+  overflow: hidden;
+  font:
+    16px "Lucida Grande",
+    "Helvetica",
+    "Arial",
+    sans-serif;
+}
+
+th,
+td {
+  border: 1px solid #bbb;
+  padding: 2px 8px 0;
+  text-align: center;
+  width: 50px;
+  height: 20px;
+}
+
+thead > tr > th {
+  background-color: #cce;
+  font-size: 18px;
+  border-bottom: 2px solid #999;
+}
