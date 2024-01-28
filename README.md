@@ -8,9 +8,9 @@ the visuals and normal html for everything else.
 
 ### Controls
 
-*Double click to create a new node.
-*Ctrl+click to create a new transition.
-*While a transition or node is selected, type to change its label.
-*Double an existing node to toggle if it is final.
+- Double click to create a new node.
+- Ctrl+click to create a new transition.
+- While a transition or node is selected, type to change its label.
+- Double an existing node to toggle if it is final.
 
 ### Created by Joseph Kiriacos
