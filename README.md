@@ -13,4 +13,6 @@ the visuals and normal html for everything else.
 - While a transition or node is selected, type to change its label.
 - Double an existing node to toggle if it is final.
 
-### Created by Joseph Kiriacos
+### About Me
+
+This was my first attempt at creating a webapp and my first time utilizing React. There was definitely a steep learning curve to this, as I kind of was learning as I went. The site _definitely_ isn't pretty, but it functions well and the actual graph creating looks quite nice in my opinion. Overall, this was a fun project to make and a great exercise. Hopefully whatever I make next looks a little more visually appealing, though...
