@@ -5,9 +5,9 @@ import { fsmNode } from "./FSM/Node";
 
 export default function TestString(){
 
-  return <div id="test"><label>Test String: </label>
+  return <div id="test">
+    <button type="button" onClick={testHelper}>Test String</button>
   <input type="text" id="testString" onChange={updateInput}/>
-  <button type="button" onClick={testHelper}>Test String</button>
   </div>
 }
 

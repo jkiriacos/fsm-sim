@@ -87,10 +87,13 @@ export function onMouseMove(e) {
           trans.getFrom().getX() - trans.getTo().getX(),
         );
 
-        const fromX = trans.getFrom().getX();
-        const fromY = trans.getFrom().getY();
-        const toX = trans.getTo().getX();
-        const toY = trans.getTo().getY();
+        let other = trans.getFrom();
+        if (heldNode === trans.getFrom()) other = trans.getTo();
+
+        const fromX = clientX;
+        const fromY = clientY;
+        const toX = other.getX();
+        const toY = other.getY();
 
         const midX = (fromX + toX) / 2;
         const midY = (fromY + toY) / 2;
@@ -106,9 +109,9 @@ export function onMouseMove(e) {
           trans.setMidX(trans.getMidX() - (trans.getFrom().getX() - clientX));
           trans.setMidY(trans.getMidY() - (trans.getFrom().getY() - clientY));
         } else if (trans.scale === 0) {
-          let other = trans.getFrom();
+          
 
-          if (heldNode === trans.getFrom()) other = trans.getTo();
+          
 
           if (trans.getFrom() === trans.getTo()) {
             trans.setMidX(trans.getMidX() - (trans.getFrom().getX() - clientX));
@@ -121,13 +124,11 @@ export function onMouseMove(e) {
 
         //adjust curvature of line while keeping correct scale if it is quadratic
         else {
-          let xDir = 1;
-          let yDir = 1;
 
           const controlPointX =
-            midX - distance * trans.scale * Math.sin(theta) * xDir;
+            midX - distance * trans.scale * Math.sin(theta);
           const controlPointY =
-            midY + distance * trans.scale * Math.cos(theta) * yDir;
+            midY + distance * trans.scale * Math.cos(theta);
 
           trans.setMidX(controlPointX);
           trans.setMidY(controlPointY);
@@ -136,11 +137,9 @@ export function onMouseMove(e) {
     });
 
     //change the node coordinates to match the current mouse position
-    drawAll();
     heldNode.setX(clientX);
     heldNode.setY(clientY);
-    //TODO: prevent node stacking? add check
-    
+    drawAll();
   }
 
   //if a transition midpoint is being moved
@@ -285,20 +284,17 @@ export function onMouseUp(e) {
           true,
         );
 
-      // if(!alphabet.includes("a"))
-      // alphabet.push("a");
-
       const table = document.getElementById("table");
 
       if (table !== null) {
         const row = document.createElement("tr");
-        row.innerHTML = `<tr>
+        row.innerHTML = `
           <th>${heldNode.getLabel()}</th>
-          <th contenteditable='true'>${transitions[
+          <th>${transitions[
             transitions.length - 1
           ].getLabel()}</th>
-          <th>${end.getLabel()}</th></tr>`;
-        table.append(row);
+          <th>${end.getLabel()}</th>`;
+        table.getElementsByTagName("tbody")[0].append(row);
       }
     }
   }
@@ -337,25 +333,6 @@ export function onKeyPress(e) {
           .filter((trans) => trans !== selectedItem),
       );
     }
-
-    // let newAlph = [];
-
-    //   transitions.forEach(trans => {
-    //     if(!newAlph.includes(trans.getLabel()))
-    //       newAlph.push(trans.getLabel());
-    //   });
-
-    //   // alphabet = newAlph;
-
-    // const alpha = document.getElementById("alpha");
-
-    // // let toReplace = ReactDOMServer.renderToStaticMarkup(
-    // //   <div id="alpha">&Sigma;: {alphabet.reduce((acc, cur)=>{
-    // //     return cur +", " + acc;
-    // //   },"")}</div>
-    // // );
-
-    // // if (alpha !== null) $(alpha).replaceWith(toReplace);
 
     //deselects the deleted item
     selectedItem = undefined;

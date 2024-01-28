@@ -7,7 +7,6 @@ import TestString from "./TestString";
 
 //TODO: delete works w/ test
 //TODO: make site look half decent...
-//TODO: instructions
 
 class App extends Component {
   render() {

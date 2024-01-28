@@ -10,8 +10,8 @@
 
 #tableContainer {
   height: 244px;
-  width: 200px;
-  overflow-y: scroll;
+  width: 400px;
+  overflow:auto;
 }
 
 table {
