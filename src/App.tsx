@@ -32,11 +32,11 @@ class App extends Component {
           Controls: 
           <pre>
             - Double click to create a new node.{'\n'}
-            - Ctrl+click to create a new transition.{'\n'}
+            - Ctrl+drag to create a new transition.{'\n'}
             - Drag a transition midpoint to change the curve.{'\n'}
             - While a transition or node is selected, {'\n  '}type to change its label.{'\n'}
             - Press delete to delete a node or transition.{'\n'}
-            - Double an existing node to toggle if it is final.{'\n'}
+            - Double click an existing node to toggle {'\n'}  if it is final.{'\n'}
             </pre>
           </p>
       </div>

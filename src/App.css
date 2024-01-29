@@ -28,17 +28,17 @@ table {
 
 th,
 td {
-  border: 1px solid #bbb;
+  border: 1px solid #555;
   padding: 2px 8px 0;
   text-align: center;
   width: 65px;
-  height: 20px;
+  height: 25px;
 }
 
 thead > tr > th {
   background-color: #cce;
   font-size: 18px;
-  border-bottom: 2px solid #999;
+  border-bottom: 2px solid #555;
 }
 
 #credit{
