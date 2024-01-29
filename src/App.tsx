@@ -26,7 +26,7 @@ class App extends Component {
         </div>
         <TestString />
         <div id="credit">
-        <p>Made by Joseph Kiriacos</p>
+        <p>Made by <a href="https://github.com/jkiriacos/fsm-sim.git" rel="noreferrer" target="_blank">Joseph Kiriacos</a></p>
         </div>
         <p>
           Controls: 
