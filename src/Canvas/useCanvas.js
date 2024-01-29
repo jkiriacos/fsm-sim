@@ -17,6 +17,7 @@ const useCanvas = (draw) => {
     context = canv.getContext("2d");
     canv.setAttribute("tabindex", 0);
 
+    //Adds event listeners
     canv.addEventListener("dblclick", onDblClick);
     canv.addEventListener("mousedown", onMouseDown);
     canv.addEventListener("mousemove", onMouseMove);
@@ -25,7 +26,6 @@ const useCanvas = (draw) => {
     context.font = "12px Arial";
     context.textAlign = "center";
     draw();
-    //draw(context,x,y, fill)
 
     // Clean up function
     return () => {

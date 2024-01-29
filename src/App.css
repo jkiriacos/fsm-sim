@@ -1,11 +1,10 @@
 #wrapper {
   width: 1250px;
-
-  overflow: hidden; /* will contain if #first is longer than #second */
+  overflow: hidden; 
 }
 #canvas {
   width: 910px;
-  float: left; /* add this */
+  float: left; 
 }
 
 #tableContainer {

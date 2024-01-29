@@ -1,3 +1,9 @@
+/*
+*Canvas that handles all mouse and key events, including 
+*movement, deletion, clicking, etc.
+*Stores all nodes and transitions
+*/
+
 import useCanvas from "./useCanvas";
 import {
   drawAll,
@@ -79,8 +85,8 @@ export function onMouseMove(e) {
     }
 
     transitions.forEach((trans) => {
-      //if a transition connects the node that is being moved, change the midpoint
 
+      //if a transition connects the node that is being moved, change the midpoint
       if (trans.getFrom() === heldNode || trans.getTo() === heldNode) {
         let theta = Math.atan2(
           trans.getFrom().getY() - trans.getTo().getY(),
@@ -90,39 +96,20 @@ export function onMouseMove(e) {
         let other = trans.getFrom();
         if (heldNode === trans.getFrom()) other = trans.getTo();
 
-        const fromX = clientX;
-        const fromY = clientY;
-        const toX = other.getX();
-        const toY = other.getY();
+        const midX = (clientX + other.getX()) / 2;
+        const midY = (clientY + other.getY()) / 2;
 
-        const midX = (fromX + toX) / 2;
-        const midY = (fromY + toY) / 2;
+        const distance = Math.sqrt(Math.pow(other.getX()-clientX,2) + Math.pow(other.getY()-clientY,2));
 
-        const dx = toX - fromX;
-        const dy = toY - fromY;
-
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        //set midpoint to middle of true line if the transition is linear
-
+          //draws the transition based on if its linear, to itself, or quadratic
         if (trans.getFrom() === trans.getTo()) {
           trans.setMidX(trans.getMidX() - (trans.getFrom().getX() - clientX));
           trans.setMidY(trans.getMidY() - (trans.getFrom().getY() - clientY));
         } else if (trans.scale === 0) {
-          
-
-          
-
-          if (trans.getFrom() === trans.getTo()) {
-            trans.setMidX(trans.getMidX() - (trans.getFrom().getX() - clientX));
-            trans.setMidY(trans.getMidY() - (trans.getFrom().getY() - clientY));
-          } else {
+     
             trans.setMidX((other.getX() + clientX) / 2);
             trans.setMidY((other.getY() + clientY) / 2);
-          }
         }
-
-        //adjust curvature of line while keeping correct scale if it is quadratic
         else {
 
           const controlPointX =
@@ -159,12 +146,14 @@ export function onMouseMove(e) {
       heldTrans.getTo().getX() - heldTrans.getFrom().getX(),
     );
 
+    //calculates the new scale value
     heldTrans.scale =
       Math.sqrt(
         Math.abs(Math.pow((clientX - midx) * Math.cos(theta), 2)) +
           Math.abs(Math.pow((clientY - midy) * Math.cos(theta), 2)),
       ) / dist;
 
+    //draws all arrows based on the type
     if (heldTrans.getFrom() === heldTrans.getTo()) {
       theta = Math.atan2(
         heldTrans.getTo().getY() - clientY,
@@ -174,8 +163,9 @@ export function onMouseMove(e) {
       heldTrans.setMidY(heldTrans.getFrom().getY() - 60 * Math.sin(theta));
 
     }
-    //if the arrow is a straight line, just set the midpoint to center
     else if (heldTrans.scale === 0) {
+
+      //if the arrow is straight, the midpoint the average 
       let other = heldTrans.getFrom();
 
       if (heldNode === heldTrans.getFrom()) other = heldTrans.getTo();
@@ -183,9 +173,9 @@ export function onMouseMove(e) {
       heldTrans.setMidX((other.getX() + clientX) / 2);
       heldTrans.setMidY((other.getY() + clientY) / 2);
     }
-
-    //if the arrow is curved, clamp it to the tangent of the line between the start and end
     else {
+      //calculates the correct midpoint if it is quadratic
+      //generates the equation for a line perpendicular to the line between the two nodes
       let { perpSlope, yIntercept } = genPerpLine(
         heldTrans.getFrom().getX(),
         heldTrans.getFrom().getY(),
@@ -197,11 +187,13 @@ export function onMouseMove(e) {
       let realX = 0;
       let realY = 0;
 
+      //accounts for edge cases where the nodes are aligned vertically or horizontally
       if (perpSlope !== 0) {
         slope =
           (heldTrans.getFrom().getY() - heldTrans.getTo().getY()) /
           (heldTrans.getFrom().getX() - heldTrans.getTo().getX());
 
+        //calculates the line that the midpoint position is clamped to
         let yInt = clientY - slope * clientX;
         realX = (1 / (slope - perpSlope)) * (yIntercept - yInt);
         realY = slope * realX + yInt;
@@ -218,16 +210,18 @@ export function onMouseMove(e) {
       heldTrans.setMidX(realX);
       heldTrans.setMidY(realY);
 
+      //calculates the new scale
       heldTrans.scale =
         Math.sqrt(
           Math.abs(Math.pow(realX - midx, 2)) +
             Math.abs(Math.pow(realY - midy, 2)),
         ) / dist;
 
-      if (theta < 0) {
-        theta += Math.PI * 2;
-        theta = theta % (2 * Math.PI);
-      }
+        //some gross math to prevent random flipping of the arrow
+        if (theta < 0) {
+          theta += Math.PI * 2;
+          theta = theta % (2 * Math.PI);
+        }
 
       if (!(theta > Math.PI / 2 && theta < (3 * Math.PI) / 2)) {
         if (slope < 0) {
@@ -241,8 +235,9 @@ export function onMouseMove(e) {
   }
 }
 
+//generates a perpendicular line to the supplied coordinates
 function genPerpLine(x1, y1, x2, y2) {
-  // Calculate midpoint coordinates
+
   const midX = (x1 + x2) / 2;
   const midY = (y1 + y2) / 2;
 
@@ -282,6 +277,7 @@ export function onMouseUp(e) {
 
       const table = document.getElementById("table");
 
+      //appends a new transition to the table
       if (table !== null) {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -301,7 +297,6 @@ export function onMouseUp(e) {
   heldNode = undefined;
 }
 
-//TODO: create deletion, need new global node variable, create selection first
 export function onKeyPress(e) {
   if (selectedItem === undefined || e.key === "Control") return;
 
@@ -310,8 +305,8 @@ export function onKeyPress(e) {
     //if nothing is selected currently, return
 
     if (selectedItem instanceof fsmNode) {
-      //filters out transitions that connect the deleted node
 
+      //filters out transitions that connect the deleted node
       if(selectedItem !== initialState){
       transitions = transitions.filter(
         (trans) =>
@@ -335,15 +330,17 @@ export function onKeyPress(e) {
       transitions.splice(transitions.indexOf(selectedItem), 1);
     }
 
-    //deselects the deleted item
     selectedItem = undefined;
+
   } else if (e.key === "Backspace") {
     selectedItem.setLabel(
       selectedItem.getLabel().substring(0, selectedItem.getLabel().length - 1),
     );
   } else {
+    //ensures that only allowed characters are displayed
     if (/^[a-z0-9+\\|]$/i.test(e.key))
       selectedItem?.setLabel(selectedItem.getLabel() + e.key);
+    //allows for epsilon to by typed
     if (selectedItem.getLabel().includes("\\epsilon")) {
       selectedItem.setLabel(
         selectedItem
@@ -355,6 +352,7 @@ export function onKeyPress(e) {
 
   const table = document.getElementById("table");
 
+  //replaces the table with a new one
   let newTable = ReactDOMServer.renderToStaticMarkup(
     <div id="table">{Table()}</div>,
   );

@@ -1,3 +1,5 @@
+//React comp that is a table with all transitions
+
 import { transitions } from "./Canvas/Canvas";
 
 export default function Table() {

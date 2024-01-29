@@ -1,3 +1,5 @@
+//React component that allows for inputting and testing strings
+
 import { initialState } from "./Canvas/Canvas";
 import { context } from "./Canvas/useCanvas";
 import { drawAll, drawArrow, drawNode } from "./FSM/Drawing";
@@ -11,10 +13,12 @@ export default function TestString(){
   </div>
 }
 
+//timer function
 function timeout(delay: number) {
   return new Promise( res => setTimeout(res, delay) );
 }
 
+//helper for testing a string
 async function testHelper(){
 
   await test(initialState, input);
@@ -22,11 +26,13 @@ async function testHelper(){
    drawAll()
 }
 
+//tests an input string with the created graph
 async function test(curState: fsmNode, input: string): Promise<boolean>{
 
   drawNode(curState.getX(), curState.getY(), "lightblue", curState.getFinal(), curState.getLabel());
   await timeout(150);
   
+  //if the string has been searched through, check if the current state is final
   if(input.length === 0){
     if(curState.getFinal()){
      
@@ -35,12 +41,15 @@ async function test(curState: fsmNode, input: string): Promise<boolean>{
     }
 
     drawNode(curState.getX(), curState.getY(), "pink", curState.getFinal(), curState.getLabel());
-  await timeout(150);
-  drawNode(curState.getX(), curState.getY(), "grey", curState.getFinal(), curState.getLabel());
+    await timeout(150);
+    drawNode(curState.getX(), curState.getY(), "grey", curState.getFinal(), curState.getLabel());
+
     return false;
   }
 
   drawNode(curState.getX(), curState.getY(), "grey", curState.getFinal(), curState.getLabel());
+
+  //checks and explores valid paths
   for(let i = 0; i < curState.getOut().length; i ++){
     
     let from = curState.getOut()[i].getFrom();

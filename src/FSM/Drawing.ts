@@ -1,3 +1,5 @@
+//Provides all methods for drawing to the canvas
+
 import {
   NODESIZE,
   initialState,
@@ -101,6 +103,7 @@ export const drawArrow = (
   startX = startX - NODESIZE * Math.cos(theta2);
   startY = startY - NODESIZE * Math.sin(theta2);
 
+  //if the endnode of the arrow exists, draw it
   if (endNode !== undefined) {
     const dist = Math.sqrt(
       Math.pow(startX - endX, 2) + Math.pow(startY - endY, 2)
@@ -109,6 +112,7 @@ export const drawArrow = (
     let controlXOffset = 0.2 * dist * Math.cos(theta);
     let controlYOffset = 0.2 * dist * Math.sin(theta);
 
+    //handles circular transitions
     if (endNode === startNode) {
       theta = Math.atan2(startNode.getY() - midY, startNode.getX() - midX);
       endX = endNode.getX() - NODESIZE * Math.cos(theta + 0.75);
@@ -124,6 +128,7 @@ export const drawArrow = (
         theta - 1
       );
     } else {
+      //handles regular transitions
       theta2 = Math.atan2(midY - endY, midX - endX);
       endX = endX + NODESIZE * Math.cos(theta2);
       endY = endY + NODESIZE * Math.sin(theta2);
@@ -142,15 +147,13 @@ export const drawArrow = (
         endY
       );
     }
-  }
-
-  //if there is no endnode, draw a straight line
-  else {
+  } else {
+    //if there is no endnode, draw a straight line
     ctx.moveTo(startX, startY);
     ctx.quadraticCurveTo((startX + endX) / 2, (startY + endY) / 2, endX, endY);
   }
 
-  //draws the arrow
+  //draws the ending arrow itself
   ctx.stroke();
   ctx.beginPath();
   ctx.moveTo(endX, endY);
