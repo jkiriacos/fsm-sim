@@ -148,7 +148,6 @@ export const drawArrow = (
   else {
     ctx.moveTo(startX, startY);
     ctx.quadraticCurveTo((startX + endX) / 2, (startY + endY) / 2, endX, endY);
-    console.log("straight");
   }
 
   //draws the arrow
@@ -234,7 +233,6 @@ export const drawAll = () => {
     let color = "grey";
 
     if (node === initialState) {
-      console.log(node.getX() + " " + node.getY());
       drawArrow(
         context,
         node.getX() - 31,
@@ -273,8 +271,6 @@ export const drawAll = () => {
       to.getY(),
       color
     );
-
-    console.log(trans.getLabel());
 
     context.fillText(trans.getLabel(), trans.getMidX(), trans.getMidY() - 10);
   });

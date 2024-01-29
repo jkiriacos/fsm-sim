@@ -23,7 +23,7 @@ let heldTrans;
 export let initialState;
 
 const Canvas = (props) => {
-  nodes[0] = new fsmNode(150, 150, nodeCtr.toString());
+  nodes[0] = new fsmNode(150, 275, nodeCtr.toString());
   nodeCtr = nodes.length - 1;
   nodes[0].setFinal(true);
   initialState = nodes[0];
@@ -170,12 +170,9 @@ export function onMouseMove(e) {
         heldTrans.getTo().getY() - clientY,
         heldTrans.getTo().getX() - clientX,
       );
-      console.log(theta);
       heldTrans.setMidX(heldTrans.getFrom().getX() - 60 * Math.cos(theta));
       heldTrans.setMidY(heldTrans.getFrom().getY() - 60 * Math.sin(theta));
-      //  heldTrans.setMidX(100)
-      // heldTrans.setMidY(100)
-      console.log("here");
+
     }
     //if the arrow is a straight line, just set the midpoint to center
     else if (heldTrans.scale === 0) {
@@ -258,7 +255,6 @@ function genPerpLine(x1, y1, x2, y2) {
   else {
     slope = (y1 - y2) / (x1 - x2);
     perpSlope = -1 / slope;
-    console.log("inHereToo");
     yIntercept = midY - perpSlope * midX;
   }
 
@@ -315,23 +311,28 @@ export function onKeyPress(e) {
 
     if (selectedItem instanceof fsmNode) {
       //filters out transitions that connect the deleted node
+
+      if(selectedItem !== initialState){
       transitions = transitions.filter(
         (trans) =>
           !(trans.getFrom() === selectedItem || trans.getTo() === selectedItem),
       );
+      nodes.forEach(node => node.setOut(node.getOut().filter(trans => !(trans.getFrom() === selectedItem || trans.getTo() === selectedItem))))
 
       nodes.splice(nodes.indexOf(selectedItem), 1);
     }
+  }
 
     //just deletes the transition itself
     else if (selectedItem instanceof Transition) {
-      transitions.splice(transitions.indexOf(selectedItem), 1);
-      selectedItem.getTo().setOut(
+
+      selectedItem.getFrom().setOut(
         selectedItem
-          .getTo()
+          .getFrom()
           .getOut()
           .filter((trans) => trans !== selectedItem),
       );
+      transitions.splice(transitions.indexOf(selectedItem), 1);
     }
 
     //deselects the deleted item

@@ -5,7 +5,6 @@ import { drawAll } from "./FSM/Drawing";
 import Table from "./TransitionTable";
 import TestString from "./TestString";
 
-//TODO: delete works w/ test
 //TODO: make site look half decent...
 
 class App extends Component {
@@ -16,8 +15,8 @@ class App extends Component {
           <Canvas
             draw={drawAll}
             fill={"grey"}
-            width="800"
-            height="525"
+            width="900"
+            height="510"
             id="Canvas"
             style={{ border: "2px solid black" }}
           />
@@ -26,7 +25,22 @@ class App extends Component {
           <div id="table">{Table()}</div>
         </div>
         <TestString />
+        <div id="credit">
+        <p>Made by Joseph Kiriacos</p>
+        </div>
+        <p>
+          Controls: 
+          <pre>
+            - Double click to create a new node.{'\n'}
+            - Ctrl+click to create a new transition.{'\n'}
+            - Drag a transition midpoint to change the curve.{'\n'}
+            - While a transition or node is selected, {'\n  '}type to change its label.{'\n'}
+            - Press delete to delete a node or transition.{'\n'}
+            - Double an existing node to toggle if it is final.{'\n'}
+            </pre>
+          </p>
       </div>
+      
     );
   }
 }

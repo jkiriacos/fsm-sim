@@ -19,7 +19,6 @@ async function testHelper(){
 
   await test(initialState, input);
    await timeout(750);
-   console.log("all")
    drawAll()
 }
 

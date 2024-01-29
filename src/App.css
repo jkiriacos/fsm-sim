@@ -4,18 +4,20 @@
   overflow: hidden; /* will contain if #first is longer than #second */
 }
 #canvas {
-  width: 810px;
+  width: 910px;
   float: left; /* add this */
 }
 
 #tableContainer {
   height: 244px;
-  width: 400px;
-  overflow:auto;
+  width: 265px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: inline-block;
 }
 
 table {
-  /* border: 2px solid #555; */
+  border: 2px solid #555;
   border-collapse: collapse;
   overflow: hidden;
   font:
@@ -30,7 +32,7 @@ td {
   border: 1px solid #bbb;
   padding: 2px 8px 0;
   text-align: center;
-  width: 50px;
+  width: 65px;
   height: 20px;
 }
 
@@ -38,4 +40,16 @@ thead > tr > th {
   background-color: #cce;
   font-size: 18px;
   border-bottom: 2px solid #999;
+}
+
+#credit{
+  position: absolute;
+  top: 505px;
+  left: 5px;
+  font: "Times New Roman";
+}
+
+pre{
+  width:400px;
+  font-size: 12px;
 }
