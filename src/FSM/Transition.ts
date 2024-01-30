@@ -1,3 +1,4 @@
+//Transition class with all necessary data, including label, scale, coordinates, etc
 import { fsmNode } from "./Node";
 
 export class Transition {

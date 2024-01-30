@@ -4,7 +4,7 @@ https://www.josephkiriacos.site/fsm-builder
 
 ### A Quick Summary
 
-A simple tool that allows for creating and testing finite state machines.
+A simple and concise tool that allows for creating and testing finite state machines.
 Created with typescript, css, and html in React. Utilizes the Canvas element for
 the visuals and normal html for everything else.
 
@@ -19,4 +19,4 @@ the visuals and normal html for everything else.
 
 ### About The Project
 
-This was my first attempt at creating a webapp and my first time utilizing React. There was definitely a steep learning curve to this, as I kind of was learning as I went. The site _definitely_ isn't pretty, but it functions well and the actual graph creating looks quite nice in my opinion. Overall, this was a fun project to make and a great exercise.
+This was my first attempt at creating a webapp and my first time utilizing React. There was a bit of a steep learning curve to this, as I kind of was learning as I went. The visuals of the site definitely won't win any awards, but it functions well enough and the actual graph creating looks quite nice in my opinion. Overall, this was a fun project to make and a great exercise so I'm happy with it.

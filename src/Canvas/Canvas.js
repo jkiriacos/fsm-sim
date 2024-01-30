@@ -29,7 +29,7 @@ let heldTrans;
 export let initialState;
 
 const Canvas = (props) => {
-  nodes[0] = new fsmNode(150, 275, nodeCtr.toString());
+  nodes[0] = new fsmNode(150, 255, nodeCtr.toString());
   nodeCtr = nodes.length - 1;
   nodes[0].setFinal(true);
   initialState = nodes[0];
