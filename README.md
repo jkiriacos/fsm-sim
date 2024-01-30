@@ -20,3 +20,5 @@ the visuals and normal html for everything else.
 ### About The Project
 
 This was my first attempt at creating a webapp and my first time utilizing React. There was a bit of a steep learning curve to this, as I kind of was learning as I went. The visuals of the site definitely won't win any awards, but it functions well enough and the actual graph creating looks quite nice in my opinion. Overall, this was a fun project to make and a great exercise so I'm happy with it.
+
+MIT License and all that, knock yourself out doing whatever to the code.
